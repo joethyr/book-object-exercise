@@ -1,12 +1,16 @@
-let myLibrary = [];
+const myLibrary = [];
+const table = document.querySelector("table");
+const tableRow = document.createElement("tr");
 
 function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.read = read;
-  this.info = () => `${title} by ${author}, ${295} pages, ${read}.`;
 }
+Book.prototype.info = function () {
+  alert(`${title} by ${author}, ${295} pages, ${read}.`);
+};
 
 function addBookToLibrary(book) {
   myLibrary.push(book);
@@ -15,15 +19,13 @@ function addBookToLibrary(book) {
 const hobbit = new Book("The Hobbit", "JRR Tolkien", 295, "finished reading");
 addBookToLibrary(hobbit);
 
-// function that loops through array and displays each book on the page.
-// display them in a table
-// use DOM manipulation
-
-const table = document.querySelector("table");
-const tableRow = document.createElement("tr");
-const tableHeader = document.createElement("th");
-
-let thText = document.createTextNode("BOOK VALUE");
-table.appendChild(tableRow);
-tableRow.appendChild(tableHeader);
-tableHeader.appendChild(thText);
+// function that displays books
+myLibrary.forEach((book) => {
+  for (const key in book) {
+    if (book.hasOwnProperty(key)) {
+      const tableHeader = document.createElement("th");
+      let thText = document.createTextNode(`${hobbit[key]}`);
+      table.appendChild(tableRow).appendChild(tableHeader).appendChild(thText);
+    }
+  }
+});
