@@ -1,3 +1,5 @@
+let myLibrary = [];
+
 function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
@@ -6,5 +8,9 @@ function Book(title, author, pages, read) {
   this.info = () => `${title} by ${author}, ${295} pages, ${read}.`;
 }
 
+function addBookToLibrary(book) {
+  myLibrary.push(book)
+}
+
 const hobbit = new Book("The Hobbit", "JRR Tolkien", 295, "finished reading");
-console.log(hobbit.info());
+addBookToLibrary(hobbit);
