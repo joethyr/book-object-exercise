@@ -9,8 +9,21 @@ function Book(title, author, pages, read) {
 }
 
 function addBookToLibrary(book) {
-  myLibrary.push(book)
+  myLibrary.push(book);
 }
 
 const hobbit = new Book("The Hobbit", "JRR Tolkien", 295, "finished reading");
 addBookToLibrary(hobbit);
+
+// function that loops through array and displays each book on the page.
+// display them in a table
+// use DOM manipulation
+
+const table = document.querySelector("table");
+const tableRow = document.createElement("tr");
+const tableHeader = document.createElement("th");
+
+let thText = document.createTextNode("BOOK VALUE");
+table.appendChild(tableRow);
+tableRow.appendChild(tableHeader);
+tableHeader.appendChild(thText);
