@@ -29,3 +29,8 @@ myLibrary.forEach((book) => {
     }
   }
 });
+
+// opens Book form
+function openForm() {
+  document.getElementById("bookForm").style.display = "block";
+}

@@ -1,0 +1,6 @@
+.form-popup {
+  display: none;
+  border: 1px black solid;
+  margin: 70px 0;
+  padding: 1rem;
+}

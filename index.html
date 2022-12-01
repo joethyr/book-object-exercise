@@ -11,6 +11,7 @@
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body class="container text-center">
     <h1>My Library</h1>
@@ -22,6 +23,78 @@
         <th>Read?</th>
       </tr>
     </table>
+    <button type="button" class="btn btn-success" onclick="openForm()">
+      Add Book
+    </button>
+    <div class="form-popup" id="bookForm">
+      <form>
+        <h2>Book Info</h2>
+        <div class="row mb-3">
+          <label for="bookTitleForm" class="col-sm col-form-label"
+            >Title:</label
+          >
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              id="bookTitleForm"
+              placeholder="Harry Potter and The Secrets of Stones"
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="bookAuthorForm" class="col-sm col-form-label"
+            >Author:</label
+          >
+          <div class="col-sm-10">
+            <input
+              type="email"
+              class="form-control"
+              id="bookAuthorForm"
+              placeholder="J.K. Rowling"
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="bookPagesForm" class="col-sm-2 col-form-label"
+            >Pages:</label
+          >
+          <div class="col-sm-2">
+            <input
+              type="number"
+              class="form-control"
+              id="bookPagesForm"
+              placeholder="348"
+            />
+          </div>
+          <div class="col-sm">
+            <label for="bookReadForm" class="col-sm-2 col-form-label"
+              >Finished Reading?:</label
+            >
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="inlineRadioOptions"
+                id="inlineRadio1"
+                value="option1"
+              />
+              <label class="form-check-label" for="inlineRadio1">yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="inlineRadioOptions"
+                id="inlineRadio2"
+                value="option2"
+              />
+              <label class="form-check-label" for="inlineRadio2">no</label>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>
