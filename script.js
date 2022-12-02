@@ -34,3 +34,8 @@ myLibrary.forEach((book) => {
 function openForm() {
   document.getElementById("bookForm").style.display = "block";
 }
+
+function bookFormInput() {
+  alert("it works!");
+  return false;
+}

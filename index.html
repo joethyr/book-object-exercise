@@ -27,7 +27,8 @@
       Add Book
     </button>
     <div class="form-popup" id="bookForm">
-      <form>
+      <!-- FORM -->
+      <form onsubmit="return bookFormInput();">
         <h2>Book Info</h2>
         <div class="row mb-3">
           <label for="bookTitleForm" class="col-sm col-form-label"
@@ -39,6 +40,7 @@
               class="form-control"
               id="bookTitleForm"
               placeholder="Harry Potter and The Secrets of Stones"
+              required
             />
           </div>
         </div>
@@ -48,10 +50,11 @@
           >
           <div class="col-sm-10">
             <input
-              type="email"
+              type="text"
               class="form-control"
               id="bookAuthorForm"
               placeholder="J.K. Rowling"
+              required
             />
           </div>
         </div>
@@ -65,6 +68,7 @@
               class="form-control"
               id="bookPagesForm"
               placeholder="348"
+              required
             />
           </div>
           <div class="col-sm">
@@ -88,11 +92,13 @@
                 name="inlineRadioOptions"
                 id="inlineRadio2"
                 value="option2"
+                required
               />
               <label class="form-check-label" for="inlineRadio2">no</label>
             </div>
           </div>
         </div>
+        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
       </form>
     </div>
     <script src="script.js"></script>
