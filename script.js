@@ -1,6 +1,8 @@
 const myLibrary = [];
 const table = document.querySelector("table");
 const tableRow = document.createElement("tr");
+const addBookBtn = document.querySelector(".add-book-btn");
+const submitBookBtn = document.querySelector(".submit-book-btn");
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -31,11 +33,12 @@ myLibrary.forEach((book) => {
 });
 
 // opens Book form
-function openForm() {
+addBookBtn.addEventListener("click", () => {
   document.getElementById("bookForm").style.display = "block";
-}
+});
 
-function bookFormInput() {
+// submits book form
+submitBookBtn.addEventListener("submit", () => {
   alert("it works!");
   return false;
-}
+});
