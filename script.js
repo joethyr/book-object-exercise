@@ -47,6 +47,7 @@ function createBook(e) {
   console.log(...arr);
   newBook = new Book(...arr);
   addBookToLibrary(newBook);
+  form.reset();
 }
 
 const hobbit = new Book("The Hobbit", "JRR Tolkien", 295, "yes");
