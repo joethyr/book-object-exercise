@@ -50,5 +50,13 @@ function createBook(e) {
   form.reset();
 }
 
+submitBookBtn.addEventListener("reset", () => {
+  document.getElementById("bookForm").style.display = "none";
+});
+
+
+
+
+
 const hobbit = new Book("The Hobbit", "JRR Tolkien", 295, "yes");
 addBookToLibrary(hobbit);
