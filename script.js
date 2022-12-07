@@ -2,6 +2,7 @@ const myLibrary = [];
 const table = document.querySelector("tbody");
 const addBookBtn = document.querySelector(".add-book-btn");
 const submitBookBtn = document.querySelector(".submit-book-btn");
+const createButton = document.createElement("button");
 const form = document.querySelector("form");
 
 function Book(title, author, pages, read) {
@@ -15,17 +16,27 @@ Book.prototype.info = function () {
   alert(`${title} by ${author}, ${295} pages, ${read}.`);
 };
 
+Book.prototype.deleteBookButton = function (row) {
+  let deleteButton = table
+    .appendChild(row)
+    .appendChild(document.createElement("th"))
+    .appendChild(document.createElement("button"));
+  deleteButton.innerHTML = "delete book";
+  deleteButton.classList.add("btn", "btn-danger", "book-delete-button");
+};
+
 function addBookToLibrary(book) {
   myLibrary.push(book);
   displayBook(book);
 }
 
 function displayBook(book) {
-  let tableRow = table.appendChild(document.createElement("tr"));
+  const tableRow = document.createElement("tr");
+  book.deleteBookButton(tableRow);
   for (const key in book) {
     if (book.hasOwnProperty(key)) {
       const tableHeader = document.createElement("th");
-      let thText = document.createTextNode(`${book[key]}`);
+      const thText = document.createTextNode(`${book[key]}`);
       table.appendChild(tableRow).appendChild(tableHeader).appendChild(thText);
     }
   }
@@ -53,10 +64,6 @@ function createBook(e) {
 submitBookBtn.addEventListener("reset", () => {
   document.getElementById("bookForm").style.display = "none";
 });
-
-
-
-
 
 const hobbit = new Book("The Hobbit", "JRR Tolkien", 295, "yes");
 addBookToLibrary(hobbit);
