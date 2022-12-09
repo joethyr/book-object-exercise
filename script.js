@@ -12,6 +12,17 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
+const checkboxAttributes = {
+  type: "checkbox",
+  class: "form-check-input",
+};
+
+function setAttributes(element, attributes) {
+  Object.keys(attributes).forEach((attr) => {
+    element.setAttribute(attr, attributes[attr]);
+  });
+}
+
 Book.prototype.info = function () {
   alert(`${this.title} by ${this.author}, ${this.pages} pages, ${this.read}.`);
 };
@@ -21,7 +32,7 @@ Book.prototype.info = function () {
 };
 
 Book.prototype.deleteBookButton = function (row) {
-  // row.setAttribute("book", `${this.title} by ${this.author}`)
+  row.setAttribute("id", this.title);
   let deleteButton = table
     .appendChild(row)
     .appendChild(document.createElement("th"))
@@ -46,19 +57,46 @@ function displayBook(book) {
   book.deleteBookButton(tableRow);
   for (const key in book) {
     if (book.hasOwnProperty(key)) {
-      const tableHeader = document.createElement("th");
-      const thText = document.createTextNode(`${book[key]}`);
-      table.appendChild(tableRow).appendChild(tableHeader).appendChild(thText);
+      if (key == "read") break;
+      // maybe change the function above to add css that makes the box checked/unchecked
+      table
+        .appendChild(tableRow)
+        .appendChild(document.createElement("th"))
+        .appendChild(document.createTextNode(`${book[key]}`));
     }
   }
-  document
-    .querySelectorAll(".book-delete-button")
-    .forEach((row) => row.addEventListener("click", deleteBookfromLibrary));
+
+  inputTag = table
+    .appendChild(tableRow)
+    .appendChild(document.createElement("th"))
+    .appendChild(document.createElement("input"));
+
+  setAttributes(inputTag, checkboxAttributes);
+
+  document.querySelectorAll(".book-delete-button").forEach(function (row) {
+    row.addEventListener("click", deleteBookfromLibrary);
+    row.addEventListener("click", deleteBookfromDOM);
+  });
 }
 
 addBookBtn.addEventListener("click", () => {
   document.getElementById("bookForm").style.display = "block";
 });
+
+function deleteBookfromLibrary(e) {
+  let a = e.target.getAttribute("book");
+  myLibrary.splice(
+    myLibrary.findIndex((item) => item.title === a),
+    1
+  );
+}
+
+// remove bookRow from DOM
+function deleteBookfromDOM(e) {
+  let a = e.target.getAttribute("book");
+  let b = document.getElementById(a);
+  b.remove();
+}
 
 submitBookBtn.addEventListener("submit", createBook);
 
@@ -78,14 +116,5 @@ submitBookBtn.addEventListener("reset", () => {
   document.getElementById("bookForm").style.display = "none";
 });
 
-function deleteBookfromLibrary(e) {
-  let a = e.target.getAttribute("book");
-  console.log(a);
-  myLibrary.splice(
-    myLibrary.findIndex((item) => item.title === a),
-    1
-  );
-}
-
-const hobbit = new Book("The Hobbit", "JRR Tolkien", 295, "yes");
+const hobbit = new Book("The Hobbit", "JRR Tolkien", 295, "read");
 addBookToLibrary(hobbit);

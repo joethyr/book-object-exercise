@@ -23,6 +23,15 @@
         <th>Pages</th>
         <th>Read?</th>
       </tr>
+      <tr>
+        <th></th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Pages</th>
+        <th>
+          <input type="checkbox" class="form-check-input"/>
+        </th>
+      </tr>
     </table>
     <button type="button" class="btn btn-success add-book-btn">Add Book</button>
     <div class="form-popup" id="bookForm">
@@ -83,7 +92,7 @@
                 type="radio"
                 name="bookReadForm"
                 id="inlineRadio1"
-                value="yes"
+                value="read"
               />
               <label class="form-check-label" for="inlineRadio1">yes</label>
             </div>
@@ -93,7 +102,7 @@
                 type="radio"
                 name="bookReadForm"
                 id="inlineRadio2"
-                value="no"
+                value="unread"
                 required
               />
               <label class="form-check-label" for="inlineRadio2">no</label>
