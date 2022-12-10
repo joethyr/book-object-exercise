@@ -15,6 +15,7 @@ function Book(title, author, pages, read) {
 const checkboxAttributes = {
   type: "checkbox",
   class: "form-check-input",
+  status: "unread",
 };
 
 function setAttributes(element, attributes) {
@@ -49,34 +50,48 @@ Book.prototype.deleteBookButton = function (row) {
 
 function addBookToLibrary(book) {
   myLibrary.push(book);
-  displayBook(book);
+  renderBook(book);
 }
 
-function displayBook(book) {
+function renderBook(book) {
   const tableRow = document.createElement("tr");
   book.deleteBookButton(tableRow);
   for (const key in book) {
     if (book.hasOwnProperty(key)) {
-      if (key == "read") break;
-      // maybe change the function above to add css that makes the box checked/unchecked
+      if (key == "read") {
+        const inputTag = table
+          .appendChild(tableRow)
+          .appendChild(document.createElement("th"))
+          .appendChild(document.createElement("input"));
+        setAttributes(inputTag, checkboxAttributes);
+        if (book[key] == "read") {
+          inputTag.setAttribute("status", "read");
+          inputTag.checked = true;
+        } else {
+          inputTag.setAttribute("status", "unread");
+          inputTag.checked = false;
+        }
+        break;
+      }
+
       table
         .appendChild(tableRow)
         .appendChild(document.createElement("th"))
         .appendChild(document.createTextNode(`${book[key]}`));
     }
   }
-
-  inputTag = table
-    .appendChild(tableRow)
-    .appendChild(document.createElement("th"))
-    .appendChild(document.createElement("input"));
-
-  setAttributes(inputTag, checkboxAttributes);
-
   document.querySelectorAll(".book-delete-button").forEach(function (row) {
     row.addEventListener("click", deleteBookfromLibrary);
     row.addEventListener("click", deleteBookfromDOM);
   });
+}
+
+function deleteBookfromLibrary(e) {
+  let a = e.target.getAttribute("book");
+  myLibrary.splice(
+    myLibrary.findIndex((item) => item.read === a),
+    1
+  );
 }
 
 addBookBtn.addEventListener("click", () => {
