@@ -12,7 +12,7 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
-const checkboxAttributes = {
+let checkboxAttributes = {
   type: "checkbox",
   class: "form-check-input",
   status: "unread",
@@ -23,15 +23,6 @@ function setAttributes(element, attributes) {
     element.setAttribute(attr, attributes[attr]);
   });
 }
-
-Book.prototype.info = function () {
-  alert(`${this.title} by ${this.author}, ${this.pages} pages, ${this.read}.`);
-};
-
-Book.prototype.info = function () {
-  alert(`${this.title} by ${this.author}, ${this.pages} pages, ${this.read}.`);
-};
-
 Book.prototype.deleteBookButton = function (row) {
   row.setAttribute("id", this.title);
   let deleteButton = table
@@ -48,6 +39,25 @@ Book.prototype.deleteBookButton = function (row) {
   deleteButton.setAttribute("book", this.title);
 };
 
+Book.prototype.createCheckBox = function (row) {
+  const inputTag = table
+    .appendChild(row)
+    .appendChild(document.createElement("th"))
+    .appendChild(document.createElement("input"));
+  inputTag.setAttribute("id", `${myLibrary.length}`);
+  setAttributes(inputTag, checkboxAttributes);
+  if (this.read == "read") {
+    inputTag.checked = true;
+  } else {
+    inputTag.checked = false;
+  }
+  document
+    .getElementById(`${myLibrary.length}`)
+    .addEventListener("click", () => {
+      this.read == "read" ? (this.read = "unread") : (this.read = "read");
+    });
+};
+
 function addBookToLibrary(book) {
   myLibrary.push(book);
   renderBook(book);
@@ -59,18 +69,7 @@ function renderBook(book) {
   for (const key in book) {
     if (book.hasOwnProperty(key)) {
       if (key == "read") {
-        const inputTag = table
-          .appendChild(tableRow)
-          .appendChild(document.createElement("th"))
-          .appendChild(document.createElement("input"));
-        setAttributes(inputTag, checkboxAttributes);
-        if (book[key] == "read") {
-          inputTag.setAttribute("status", "read");
-          inputTag.checked = true;
-        } else {
-          inputTag.setAttribute("status", "unread");
-          inputTag.checked = false;
-        }
+        book.createCheckBox(tableRow);
         break;
       }
 
@@ -112,7 +111,6 @@ function deleteBookfromDOM(e) {
   let b = document.getElementById(a);
   b.remove();
 }
-
 submitBookBtn.addEventListener("submit", createBook);
 
 function createBook(e) {
@@ -122,7 +120,6 @@ function createBook(e) {
   for (key of formData) {
     arr.push(key[1]);
   }
-  console.log(...arr);
   newBook = new Book(...arr);
   addBookToLibrary(newBook);
   form.reset();
