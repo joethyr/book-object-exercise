@@ -93,10 +93,6 @@ function deleteBookfromLibrary(e) {
   );
 }
 
-addBookBtn.addEventListener("click", () => {
-  document.getElementById("bookForm").style.display = "block";
-});
-
 function deleteBookfromLibrary(e) {
   let a = e.target.getAttribute("book");
   myLibrary.splice(
@@ -105,7 +101,6 @@ function deleteBookfromLibrary(e) {
   );
 }
 
-// remove bookRow from DOM
 function deleteBookfromDOM(e) {
   let a = e.target.getAttribute("book");
   let b = document.getElementById(a);
@@ -124,8 +119,12 @@ function createBook(e) {
   addBookToLibrary(newBook);
   form.reset();
 }
+
 submitBookBtn.addEventListener("reset", () => {
   document.getElementById("bookForm").style.display = "none";
+});
+addBookBtn.addEventListener("click", () => {
+  document.getElementById("bookForm").style.display = "block";
 });
 
 const hobbit = new Book("The Hobbit", "JRR Tolkien", 295, "read");
