@@ -5,58 +5,57 @@ const submitBookBtn = document.querySelector(".submit-book-btn");
 const button = document.createElement("button");
 const form = document.querySelector("form");
 
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-}
-
 let checkboxAttributes = {
   type: "checkbox",
   class: "form-check-input",
   status: "unread",
 };
 
-function setAttributes(element, attributes) {
-  Object.keys(attributes).forEach((attr) => {
-    element.setAttribute(attr, attributes[attr]);
-  });
-}
-Book.prototype.deleteBookButton = function (row) {
-  row.setAttribute("id", this.title);
-  let deleteButton = table
-    .appendChild(row)
-    .appendChild(document.createElement("th"))
-    .appendChild(document.createElement("button"));
-  deleteButton.innerHTML = "delete book";
-  deleteButton.classList.add(
-    "btn",
-    "btn-danger",
-    "btn-sm",
-    "book-delete-button"
-  );
-  deleteButton.setAttribute("book", this.title);
-};
-
-Book.prototype.createCheckBox = function (row) {
-  const inputTag = table
-    .appendChild(row)
-    .appendChild(document.createElement("th"))
-    .appendChild(document.createElement("input"));
-  inputTag.setAttribute("id", `${myLibrary.length}`);
-  setAttributes(inputTag, checkboxAttributes);
-  if (this.read == "read") {
-    inputTag.checked = true;
-  } else {
-    inputTag.checked = false;
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
   }
-  document
-    .getElementById(`${myLibrary.length}`)
-    .addEventListener("click", () => {
-      this.read == "read" ? (this.read = "unread") : (this.read = "read");
+
+  deleteBookButton(row) {
+    row.setAttribute("id", this.title);
+    let deleteButton = table
+      .appendChild(row)
+      .appendChild(document.createElement("th"))
+      .appendChild(document.createElement("button"));
+    deleteButton.innerHTML = "delete book";
+    deleteButton.classList.add(
+      "btn",
+      "btn-danger",
+      "btn-sm",
+      "book-delete-button"
+    );
+    deleteButton.setAttribute("book", this.title);
+  };
+
+  createCheckBox(row) {
+    const inputTag = table
+      .appendChild(row)
+      .appendChild(document.createElement("th"))
+      .appendChild(document.createElement("input"));
+    inputTag.setAttribute("id", `${myLibrary.length}`);
+    Object.keys(checkboxAttributes).forEach((attr) => {
+      inputTag.setAttribute(attr, checkboxAttributes[attr]);
     });
-};
+    if (this.read == "read") {
+      inputTag.checked = true;
+    } else {
+      inputTag.checked = false;
+    }
+    document
+      .getElementById(`${myLibrary.length}`)
+      .addEventListener("click", () => {
+        this.read == "read" ? (this.read = "unread") : (this.read = "read");
+      });
+  };
+}
 
 function addBookToLibrary(book) {
   myLibrary.push(book);
@@ -93,20 +92,11 @@ function deleteBookfromLibrary(e) {
   );
 }
 
-function deleteBookfromLibrary(e) {
-  let a = e.target.getAttribute("book");
-  myLibrary.splice(
-    myLibrary.findIndex((item) => item.title === a),
-    1
-  );
-}
-
 function deleteBookfromDOM(e) {
   let a = e.target.getAttribute("book");
   let b = document.getElementById(a);
   b.remove();
 }
-submitBookBtn.addEventListener("submit", createBook);
 
 function createBook(e) {
   e.preventDefault();
@@ -119,6 +109,8 @@ function createBook(e) {
   addBookToLibrary(newBook);
   form.reset();
 }
+
+submitBookBtn.addEventListener("submit", createBook);
 
 submitBookBtn.addEventListener("reset", () => {
   document.getElementById("bookForm").style.display = "none";
